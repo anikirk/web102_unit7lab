@@ -1,9 +1,11 @@
 import React from 'react';
+import { useState } from 'react';
 import './CreatePost.css'
+import { supabase } from '../client'
 
 const CreatePost = () => {
 
-    const [post, setPost] = useState({title: "", author: "", description: ""})
+    const [post, setPost] = useState({title: "", description: "", image: ""});
 
     const handleChange = (event) => {
         const {name, value} = event.target;
@@ -15,6 +17,25 @@ const CreatePost = () => {
         })
     }
 
+    const createPost = async (event) => {
+        event.preventDefault();
+    
+        const postData = { title: post.title };
+    
+        if (post.description.trim() !== '') {
+            postData.description = post.description;
+        }
+    
+        if (post.image.trim() !== '') {
+            postData.image = post.image;
+        }
+    
+        await supabase.from('Posts').insert(postData);
+    
+        window.location = "/";
+    };
+    
+
     return (
         <div>
             <form>
@@ -22,15 +43,16 @@ const CreatePost = () => {
                 <input type="text" id="title" name="title" onChange={handleChange} /><br />
                 <br/>
 
-                <label for="author">Author</label><br />
-                <input type="text" id="author" name="author" onChange={handleChange} /><br />
-                <br/>
-
                 <label for="description">Description</label><br />
                 <textarea rows="5" cols="50" id="description" onChange={handleChange}>
                 </textarea>
                 <br/>
-                <input type="submit" value="Submit" />
+
+                <label for="image">Image-url</label> <br />
+                <input type="text" id="image" name="image" onChange={handleChange} /><br />
+                <br/>
+
+                <input type="submit" value="Submit" onClick={createPost} />
             </form>
         </div>
     )
