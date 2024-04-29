@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { supabase } from '../client';
 import './EditPost.css';
+import { supabase } from '../client';
+import './EditPost.css';
 
 const EditPost = () => {
     const { id } = useParams();
@@ -64,7 +66,10 @@ const EditPost = () => {
         <div>
             <form onSubmit={updatePost}>
                 <label htmlFor="title">Title</label> <br />
+            <form onSubmit={updatePost}>
+                <label htmlFor="title">Title</label> <br />
                 <input type="text" id="title" name="title" value={post.title} onChange={handleChange} /><br />
+                <br />
                 <br />
 
                 <label htmlFor="description">Description</label><br />
@@ -73,8 +78,13 @@ const EditPost = () => {
                 <br />
                 <input type="submit" value="Submit" onClick={updatePost}/>
                 <button className="deleteButton" onClick={deletePost}>Delete</button>
+                <br />
+                <input type="submit" value="Submit" onClick={updatePost}/>
+                <button className="deleteButton" onClick={deletePost}>Delete</button>
             </form>
         </div>
+    );
+};
     );
 };
 

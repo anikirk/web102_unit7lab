@@ -62,6 +62,7 @@ const ReadPosts = ({ data, sortBy }) => {
             }
         </div>  
     );
+    );
 }
 
 export default ReadPosts;
